@@ -37,10 +37,9 @@
           <el-form-item>
             <div class="w-full flex justify-between items-center">
               <el-checkbox v-model="loginForm.rememberMe">记住密码</el-checkbox>
-              <el-button type="text" @click="handleToUpdate">忘记密码?</el-button>
+              <el-button type="text" @click="handleToUpdate" v-if="isShowForget">忘记密码?</el-button>
             </div>
           </el-form-item>
-
 
 
           <el-form-item style="width:100%;">
@@ -49,13 +48,15 @@
               <span v-else>登 录 中...</span>
             </el-button>
             <div style="float: right;" v-if="register">
-              <router-link class="link-type" :to="'/register'">立即注册</router-link>
+              <el-button @click="currentPage = 3" type="text">立即注册</el-button>
             </div>
           </el-form-item>
         </el-form>
 
         <!-- 忘记密码 -->
         <update v-if="currentPage === 4" />
+        <!-- 注册 -->
+        <register v-if="currentPage === 3" />
 
       </div>
     </div>
@@ -66,8 +67,10 @@
 <script>
 import Cookies from "js-cookie";
 import ReImageVerify from "@/components/ReImageVerify";
-import update from "./login/components/update.vue";
+import update from "./components/update.vue";
+import register from "./components/register.vue";
 import { encrypt, decrypt } from '@/utils/jsencrypt';
+import loginSettings from './utils/loginSettings';
 
 // 页面背景图
 import bg from '@/assets/login/bg.png';
@@ -78,7 +81,8 @@ export default {
   name: "Login",
   components: {
     ReImageVerify,
-    update
+    update,
+    register
   },
   data() {
     const validatorCode = (rule, value, callback) => {
@@ -113,12 +117,14 @@ export default {
       },
       loading: false,
       // 验证码开关
-      captchaEnabled: true,
+      captchaEnabled: loginSettings.captchaEnabled,
       // 注册开关
-      register: true,
+      register: loginSettings.isShowRegister,
+      // 忘记密码开关
+      isShowForget: loginSettings.isShowForget,
       redirect: undefined,
       // 1:登录
-      currentPage: 4
+      currentPage: 0
     };
   },
   watch: {
