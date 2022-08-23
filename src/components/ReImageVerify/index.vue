@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <canvas ref="domRef" width="120" height="38" class="cursor-pointer" @click="getImgCode" />
+    <canvas ref="domRef" width="120" height="34" class="cursor-pointer" @click="getImgCode" />
   </div>
 </template>
 
