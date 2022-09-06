@@ -6,7 +6,6 @@ const fs = require('fs'); // 导入文件系统模块(fs)语法
 const path = require('path'); // path 模块提供了一些用于处理文件路径的小工具
 // child_process 模块提供了以与 popen(3) 类似但不完全相同的方式衍生子进程的能力
 const child_process = require('child_process');
-console.log(__dirname)
 let queryPageInfo = async () => {
   let answer2 = await inquirer.prompt([
     {
@@ -15,7 +14,7 @@ let queryPageInfo = async () => {
       message: '输入页面的名称',
       validate(input) {
         return Boolean(input);
-      },
+      }
     },
     {
       type: 'input',
@@ -23,8 +22,13 @@ let queryPageInfo = async () => {
       message: '输入页面的描述',
       validate(input) {
         return Boolean(input);
-      },
+      }
     },
+    {
+      type: 'confirm',
+      message: '是否添加路由？',
+      name: 'isAddRouter'
+    }
   ]);
   return Object.assign({}, answer2);
 };
@@ -35,12 +39,18 @@ let createModule = async info => new Promise((resolve, reject) => {
   console.log('创建中....');
   // path.resolve() 方法会把一个路径或路径片段的序列解析为一个绝对路径。
   let dest = path.resolve(`src/views/${info.name}`);
+  // 检查该目录是否存在
+  if (fs.existsSync(dest)) {
+    console.error('该目录已存在，请重新输入');
+    process.exit(0);
+  }
+
   // child_process.exec()完成后将 stdout 和 stderr 传给回调函数， child_process.exec()的同步版本，其将阻塞 Node.js 事件循环
   child_process.execSync(`mkdir  ${dest}`);
   // 开始创建
   gulp.src([
     // 正常文件
-    `${__dirname}/template/**/*`,
+    `${__dirname}/template/**/*`
   ])
     // 替换模板内容
     .pipe(replace('{{name}}', info.name))
@@ -76,8 +86,11 @@ let registNewRoute = async (answer) => {
 // 入口函数
 let main = async () => {
   let moduleInfo = await queryPageInfo();
+  console.log(moduleInfo);
   await createModule(moduleInfo);
-  await registNewRoute(moduleInfo);
+  if (moduleInfo.isAddRouter) {
+    await registNewRoute(moduleInfo);
+  }
   console.log('全部创建任务执行完毕');
 };
 
