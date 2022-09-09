@@ -66,7 +66,7 @@ module.exports = [
                 'hidden': false,
                 'component': 'system/notice/index',
                 'meta': { 'title': '通知公告', 'icon': 'message', 'noCache': false, 'link': null }
-              },]
+              }]
           },
 
           {
@@ -84,7 +84,8 @@ module.exports = [
                 'hidden': false,
                 'component': 'tool/build/index',
                 'meta': { 'title': '表单构建', 'icon': 'build', 'noCache': false, 'link': null }
-              }]
+              }
+            ]
           }
         ]
       }

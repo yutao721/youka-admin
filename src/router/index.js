@@ -88,6 +88,37 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/user',
+    component: Layout,
+    hidden: true,
+    redirect: 'noredirect',
+    children: [
+      {
+        path: 'profile',
+        component: () => import('@/views/system/user/profile/index'),
+        name: 'Profile',
+        meta: { title: '个人中心', icon: 'user' }
+      }
+    ]
+  },
+  {
+    'name': 'Test',
+    'path': '/test',
+    'hidden': false,
+    'redirect': 'noRedirect',
+    'component': Layout,
+    'meta': { 'title': '测试组件', 'icon': 'tool', 'noCache': false, 'link': null },
+    'children': [
+      {
+        'name': 'Form',
+        'path': 'form',
+        'hidden': false,
+        component: () => import('@/views/test/test'),
+        'meta': { 'title': '表单', 'icon': 'build', 'noCache': false, 'link': null }
+      }
+    ]
+  }
   // add new route ..
 ]
 

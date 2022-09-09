@@ -1,7 +1,6 @@
 /**
-* v-dialogDrag 弹窗拖拽
-* Copyright (c) 2019 ruoyi
-*/
+ * v-dialogDrag 弹窗拖拽
+ */
 
 export default {
   bind(el, binding, vnode, oldVnode) {
@@ -17,11 +16,11 @@ export default {
     dragDom.style.marginTop = 0;
     let width = dragDom.style.width;
     if (width.includes('%')) {
-      width = +document.body.clientWidth * (+width.replace(/\%/g, '') / 100);
+      width = +document.body.clientWidth * ( +width.replace(/\%/g, '') / 100 );
     } else {
       width = +width.replace(/\px/g, '');
     }
-    dragDom.style.left = `${(document.body.clientWidth - width) / 2}px`;
+    dragDom.style.left = `${( document.body.clientWidth - width ) / 2}px`;
     // 鼠标按下事件
     dialogHeaderEl.onmousedown = (e) => {
       // 鼠标按下，计算当前元素距离可视区的距离 (鼠标点击位置距离可视窗口的距离)
@@ -33,12 +32,13 @@ export default {
 
       // 注意在ie中 第一次获取到的值为组件自带50% 移动之后赋值为px
       if (sty.left.includes('%')) {
-        styL = +document.body.clientWidth * (+sty.left.replace(/\%/g, '') / 100);
-        styT = +document.body.clientHeight * (+sty.top.replace(/\%/g, '') / 100);
+        styL = +document.body.clientWidth * ( +sty.left.replace(/\%/g, '') / 100 );
+        styT = +document.body.clientHeight * ( +sty.top.replace(/\%/g, '') / 100 );
       } else {
         styL = +sty.left.replace(/\px/g, '');
         styT = +sty.top.replace(/\px/g, '');
-      };
+      }
+      ;
 
       // 鼠标拖拽事件
       document.onmousemove = function (e) {

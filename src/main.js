@@ -1,15 +1,16 @@
 import Vue from 'vue'
 import Cookies from 'js-cookie'
 import Element from 'element-ui'
+import elFormSchema from '@kummy/el-form-schema'
 import './assets/styles/element-variables.scss'
 
 import '@/assets/styles/index.scss' // global css
 import '@/assets/styles/ruoyi.scss' // ruoyi css
 import App from './App.vue'
-import store from './store/index.js'
-import router from './router/index.js'
+import store from './store/index.js' // vuex
+import router from './router/index.js' // vue-router
 import directive from './directive/index' // directive
-import plugins from './plugins/index' // plugins
+import plugins from './plugins/index' // plugins 也是挂载了几个全局方法
 import { download } from '@/utils/request'
 
 import './assets/icons' // icon
@@ -83,6 +84,15 @@ if (process.env.NODE_ENV === 'production') {
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium' // set element-ui default size
 })
+Vue.use(elFormSchema)
+// Vue.use(elFormSchema, {
+//   size: 'small',
+//   isExpand: false,
+//   componentWidth: '240px',
+//   submitProps: { type: 'primary', icon: 'el-icon-search' },
+//   resetProps: { type: 'warning', icon: 'el-icon-refresh-left' }
+//   epxandProps: { type: 'default' }
+// })
 
 Vue.config.productionTip = false
 
