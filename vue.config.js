@@ -51,7 +51,10 @@ module.exports = {
     loaderOptions: {
       sass: {
         sassOptions: { outputStyle: "expanded" }
-      }
+      },
+      // postcss: {
+      //   // plugins: [require('tailwindcss'), require('autoprefixer')]
+      // }
     }
   },
   configureWebpack: {
@@ -76,6 +79,7 @@ module.exports = {
     config.plugins.delete('preload') // TODO: need test
     config.plugins.delete('prefetch') // TODO: need test
 
+    // iconify图标插件
     config.plugin('purgeIcons').use(PurgeIcons).tap(args => {
       return args
     })

@@ -11,10 +11,12 @@ import { isExternal } from '@/utils/validate'
 export default {
   name: 'SvgIcon',
   props: {
+    // icon的名称
     iconClass: {
       type: String,
       required: true
     },
+    // 自定义的class
     className: {
       type: String,
       default: ''

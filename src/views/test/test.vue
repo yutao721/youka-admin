@@ -1,5 +1,9 @@
 <template>
   <div>
+    <svg-icon icon-class="edit"></svg-icon>
+    <Icon icon="typcn:anchor-outline"></Icon>
+    <Icon icon="icon-park-solid:setting" />
+    <p><i class="el-icon-edit"></i></p>
     <p>{{ model }}</p>
     <el-form-schema
         :schema="schema"

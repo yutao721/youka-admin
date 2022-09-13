@@ -70,7 +70,7 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/index_v1'),
         name: 'Index',
-        meta: { title: '首页1', icon: 'dashboard', affix: true }
+        meta: { title: '首页1', icon: 'dashboard|svg', affix: true }
       }
     ]
   },
@@ -84,7 +84,7 @@ export const constantRoutes = [
         path: 'profile',
         component: () => import('@/views/system/user/profile/index'),
         name: 'Profile',
-        meta: { title: '个人中心', icon: 'user' }
+        meta: { title: '个人中心', icon: 'user|svg' }
       }
     ]
   },
@@ -98,7 +98,7 @@ export const constantRoutes = [
         path: 'profile',
         component: () => import('@/views/system/user/profile/index'),
         name: 'Profile',
-        meta: { title: '个人中心', icon: 'user' }
+        meta: { title: '个人中心', icon: 'user|svg' }
       }
     ]
   },
@@ -108,14 +108,33 @@ export const constantRoutes = [
     'hidden': false,
     'redirect': 'noRedirect',
     'component': Layout,
-    'meta': { 'title': '测试组件', 'icon': 'tool', 'noCache': false, 'link': null },
+    'alwaysShow': true,
+    'meta': { 'title': '测试组件', 'icon': 'tool|svg', 'noCache': false, 'link': null },
     'children': [
       {
         'name': 'Form',
         'path': 'form',
         'hidden': false,
         component: () => import('@/views/test/test'),
-        'meta': { 'title': '表单', 'icon': 'build', 'noCache': false, 'link': null }
+        'meta': { 'title': '表单', 'icon': 'delete|svg', 'noCache': false, 'link': null }
+      }
+    ]
+  },
+  {
+    'name': 'Feat',
+    'path': '/feat',
+    'hidden': false,
+    'redirect': 'noRedirect',
+    'component': Layout,
+    'alwaysShow': true,
+    'meta': { 'title': '功能', 'icon': 'tool|svg', 'noCache': false, 'link': null },
+    'children': [
+      {
+        'name': 'Icon',
+        'path': 'icon',
+        'hidden': false,
+        component: () => import('@/views/demo/feat/icon/index'),
+        'meta': { 'title': '图标', 'icon': 'ion:settings-outline', 'noCache': false, 'link': null }
       }
     ]
   }
