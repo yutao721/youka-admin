@@ -2,11 +2,10 @@ import Vue from 'vue'
 import Cookies from 'js-cookie'
 import Element from 'element-ui'
 import elFormSchema from '@kummy/el-form-schema'
+import 'windi.css'
 import './assets/styles/element-variables.scss'
-
-// import '@/assets/styles/tailwind.css' // global css
 import '@/assets/styles/index.scss' // global css
-import '@/assets/styles/ruoyi.scss' // ruoyi css
+import '@/assets/styles/public.scss' // public css
 import App from './App.vue'
 import store from './store/index.js' // vuex
 import router from './router/index.js' // vue-router

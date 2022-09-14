@@ -68,7 +68,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'index',
-        component: () => import('@/views/index_v1'),
+        component: () => import('@/views/index'),
         name: 'Index',
         meta: { title: '首页1', icon: 'dashboard|svg', affix: true }
       }
@@ -116,7 +116,7 @@ export const constantRoutes = [
         'path': 'form',
         'hidden': false,
         component: () => import('@/views/test/test'),
-        'meta': { 'title': '表单', 'icon': 'delete|svg', 'noCache': false, 'link': null }
+        'meta': { 'title': '表单', 'icon': 'fluent:form-multiple-48-filled', 'noCache': false, 'link': null }
       }
     ]
   },
@@ -135,6 +135,13 @@ export const constantRoutes = [
         'hidden': false,
         component: () => import('@/views/demo/feat/icon/index'),
         'meta': { 'title': '图标', 'icon': 'ion:settings-outline', 'noCache': false, 'link': null }
+      },
+      {
+        'name': 'Windi',
+        'path': 'windi',
+        'hidden': false,
+        component: () => import('@/views/demo/feat/windi/index'),
+        'meta': { 'title': 'windi', 'icon': 'simple-icons:windicss', 'noCache': false, 'link': null }
       }
     ]
   }
