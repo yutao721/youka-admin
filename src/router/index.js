@@ -103,21 +103,43 @@ export const constantRoutes = [
     ]
   },
   {
-    'name': 'Test',
-    'path': '/test',
+    'name': 'Form',
+    'path': '/form',
     'hidden': false,
     'redirect': 'noRedirect',
     'component': Layout,
     'alwaysShow': true,
-    'meta': { 'title': '测试组件', 'icon': 'tool|svg', 'noCache': false, 'link': null },
+    'meta': { 'title': '表单', 'icon': 'tool|svg', 'noCache': false, 'link': null },
     'children': [
       {
-        'name': 'Form',
-        'path': 'form',
+        'name': 'Element',
+        'path': 'element',
         'hidden': false,
-        component: () => import('@/views/test/test'),
-        'meta': { 'title': '表单', 'icon': 'fluent:form-multiple-48-filled', 'noCache': false, 'link': null }
-      }
+        component: () => import('@/views/demo/form/element'),
+        'meta': { 'title': 'element', 'icon': 'logos:element', 'noCache': false, 'link': null }
+      },
+      {
+        'name': 'ElFormSchema',
+        'path': 'elFormSchema',
+        'hidden': false,
+        component: () => import('@/views/demo/form/elFormSchema'),
+        'meta': { 'title': 'elFormSchema', 'icon': 'file-icons:json-1', 'noCache': false, 'link': null }
+      },
+      {
+        'name': 'ElFormModel',
+        'path': 'elFormModel',
+        'hidden': false,
+        component: () => import('@/views/demo/form/elFormModel'),
+        'meta': { 'title': 'elFormModel', 'icon': 'carbon:model', 'noCache': false, 'link': null }
+      },
+      {
+        'name': 'ElFormRenderer',
+        'path': 'elFormRenderer',
+        'hidden': false,
+        component: () => import('@/views/demo/form/elFormRenderer'),
+        'meta': { 'title': 'elFormRenderer', 'icon': 'carbon:model', 'noCache': false, 'link': null }
+      },
+
     ]
   },
   {

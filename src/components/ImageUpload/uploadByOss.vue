@@ -40,8 +40,9 @@
   import { getToken } from '@/utils/auth';
   // 获取阿里云oss token api
   import { getOssSgn } from '@/api/common'
-
+  import emitter from 'element-ui/lib/mixins/emitter';
   export default {
+    mixins: [emitter],
     props: {
       value: [String, Object, Array],
       // 图片数量限制
@@ -133,6 +134,13 @@
 
       handleUploadImg(file) {
         console.log(file)
+
+        // this.fileList.push({ name: file.name });
+        // this.$emit('input', this.listToString(this.fileList));
+        // this.dispatch('ElFormItem', 'el.form.change', this.listToString(this.fileList));
+        // this.dispatch('ElFormItem', 'el.form.blur', this.listToString(this.fileList));
+        // this.loading.close();
+
         getOssSgn().then((res) => {
           console.log(res);
           if (res.code == 200) {
@@ -164,7 +172,7 @@
                   this.imageUrl = url + '/' + keyValue
                   // this.fileList.push({ name: file.file.name, url: this.imageUrl })
                   console.log(this.fileList)
-                  this.$emit('input', this.imageUrl)
+                  this.$emit('input', this.listToString(this.fileList));
                   console.log('Uploaded successfully', rep)
                   this.loading.close();
                   if (this.progressPercent >= 100) {

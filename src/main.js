@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Cookies from 'js-cookie'
 import Element from 'element-ui'
-import elFormSchema from '@kummy/el-form-schema'
+import elFormSchema from '@kummy/el-form-schema' // elFormSchema
+import ElFormModel from '@/components/elFormModel' // ElFormModel
 import 'windi.css'
 import './assets/styles/element-variables.scss'
 import '@/assets/styles/index.scss' // global css
@@ -86,18 +87,13 @@ if (process.env.NODE_ENV === 'production') {
   mockXHR()
 }
 
-Vue.use(Element, {
-  size: Cookies.get('size') || 'medium' // set element-ui default size
-})
+// Element组件库
+Vue.use(Element, { size: Cookies.get('size') || 'medium' })
+// elFormSchema 表单组件 可配置参数   地址：https://github.com/lisiyizu/el-form-schema
 Vue.use(elFormSchema)
-// Vue.use(elFormSchema, {
-//   size: 'small',
-//   isExpand: false,
-//   componentWidth: '240px',
-//   submitProps: { type: 'primary', icon: 'el-icon-search' },
-//   resetProps: { type: 'warning', icon: 'el-icon-refresh-left' }
-//   epxandProps: { type: 'default' }
-// })
+// ElFormModel  表单组件 可配置参数   地址： https://www.npmjs.com/package/el-form-model
+Vue.use(ElFormModel)
+
 
 Vue.config.productionTip = false
 
