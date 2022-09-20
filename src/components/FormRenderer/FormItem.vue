@@ -1,7 +1,7 @@
 <template>
-  <el-form-item v-if="!hidden" :class="{'is-no-asterisk': item.type === 'group',group: item.type === 'group',inline: item.inline,}" :prop="item.key">
+  <el-form-item v-if="!hidden" :class="{'is-no-asterisk': item.type === 'group',group: item.type === 'group',inline: item.inline,}" :prop="item.key" :required="item.required">
 
-    <template v-if="item.label && item.type !== 'image'" #label>
+    <template v-if="item.label" #label>
       {{ item.label }}
       <el-tooltip v-if="item.tooltip" popper-class="form-item-tooltip" placement="top" :content="item.tooltip">
         <i class="el-icon-question"/>
@@ -13,26 +13,25 @@
     </template>
 
     <template v-else-if="item.type === 'image'">
-      <upload-image :label="item.label"
-                    v-model="value[item.key]"
-                    :accept="item.accept"
-                    :max-size="item.maxSize"
-                    :required="item.required"
+      <upload-image v-model="value[item.key]"
+                    :disabled="item.disabled"
+                    :multiple="item.multiple"
+                    :fileSize="item.fileSize"
+                    :fileType="item.fileType"
+                    :isShowTip="item.isShowTip"
+                    :limit="item.limit"
                     :readonly="formRenderer.readonly"/>
     </template>
 
     <template v-else-if="item.type === 'files'">
-      <upload-file ref="control" v-model="value[item.key]"
+      <upload-file v-model="value[item.key]"
+                   :disabled="item.disabled"
                    :multiple="item.multiple"
-                   :min="item.min"
-                   :max="item.max"
-                   :max-size="item.maxSize"
-                   :accept="item.accept"
-                   :disabled="disabled"
-                   :readonly="formRenderer.readonly"
-                   :description="item.description"
-                   :auto-upload="item.autoUpload"
-                   :progress-dialog="item.progressDialog">
+                   :fileSize="item.fileSize"
+                   :fileType="item.fileType"
+                   :isShowTip="item.isShowTip"
+                   :limit="item.limit"
+                   :readonly="formRenderer.readonly">
         {{ item.button || '点击上传' }}
       </upload-file>
     </template>
@@ -163,9 +162,13 @@
 
 <script>
   import Vue from 'vue';
+  // oss 上传文件组件
   import UploadFile from '../FileUpload/uploadByOss';
+  // oss 上传图片组件
   import UploadImage from '../ImageUpload/uploadByOss';
+  // 自定义 获取验证码组件
   import GetVerifyCode from './GetVerifyCode.vue';
+  // 自定义 组件
   import Limit from './Limit.vue';
   // import RichTextEditor from './RichTextEditor.vue';
   // import editor from '@/components/editor';

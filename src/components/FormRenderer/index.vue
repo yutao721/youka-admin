@@ -62,7 +62,7 @@
             item.key,
             [
               {
-                required: ( item.min ?? 1 ) > 0,
+                required: item.required ?? true,
                 message: `请上传图片`,
                 trigger: ['blur', 'change']
               }

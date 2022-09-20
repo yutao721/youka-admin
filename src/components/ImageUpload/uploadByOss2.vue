@@ -1,7 +1,6 @@
 <template>
   <div class="component-upload-image">
     <el-upload
-        multiple
         :action="uploadImgUrl"
         list-type="picture-card"
         :on-success="handleUploadSuccess"
@@ -18,8 +17,7 @@
         :multiple="multiple"
         :http-request="handleUploadImg"
         :on-preview="handlePictureCardPreview"
-        :class="{hide: this.fileList.length >= this.limit}"
-    >
+        :class="{hide: this.fileList.length >= this.limit}">
       <i class="el-icon-plus"></i>
     </el-upload>
 
@@ -31,22 +29,19 @@
       的文件
     </div>
 
-    <el-dialog
-        :visible.sync="dialogVisible"
-        title="预览"
-        width="800"
-        append-to-body
-    >
-      <img
-          :src="dialogImageUrl"
-          style="display: block; max-width: 100%; margin: 0 auto"
-      />
+    <el-dialog :visible.sync="dialogVisible"
+               title="预览"
+               width="800"
+               append-to-body>
+      <img :src="dialogImageUrl" style="display: block; max-width: 100%; margin: 0 auto"/>
     </el-dialog>
   </div>
 </template>
 
 <script>
   import { getToken } from '@/utils/auth';
+  // 获取阿里云oss token api
+  import { getOssSgn } from '@/api/common'
   import emitter from 'element-ui/lib/mixins/emitter';
   import { uploadFile } from '@/plugins/uploadFile';
 
@@ -62,7 +57,7 @@
       // 大小限制(MB)
       fileSize: {
         type: Number,
-        default: 5
+        default: 2
       },
       // 文件类型, 例如['png', 'jpg', 'jpeg']
       fileType: {
@@ -87,8 +82,6 @@
     },
     data() {
       return {
-        number: 0,
-        uploadList: [],
         dialogImageUrl: '',
         dialogVisible: false,
         hideUpload: false,
@@ -103,6 +96,7 @@
     watch: {
       value: {
         handler(val) {
+          console.log(val);
           if (val) {
             // 首先将值转为数组
             const list = Array.isArray(val) ? val : this.value.split(',');
@@ -133,50 +127,121 @@
       }
     },
     methods: {
+      // 生成随机数
+      randomString(len) {
+        len = len || 32
+        const chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
+        const maxPos = chars.length
+        let pwd = ''
+        for (let i = 0; i < len; i++) {
+          pwd += chars.charAt(Math.floor(Math.random() * maxPos))
+        }
+        return pwd
+      },
+
+      // 截取上传文件后缀
+      getSuffix(filename) {
+        let pos = filename.lastIndexOf('.')
+        let suffix = ''
+        if (pos != -1) suffix = filename.substring(pos)
+        return suffix
+      },
+
       handleUploadImg(file) {
         console.log(file)
+
+
+        /* getOssSgn().then((res) => {
+           console.log(res);
+           if (res.code == 200) {
+             let picName = this.randomString(10) + this.getSuffix(file.file.name)
+             let keyValue = res.data.dir + picName;
+             //注意formData里append添加的键的大小写
+             let formData = new FormData()
+             formData.append('name', file.file.name) // 文件名称
+             formData.append('key', keyValue) // 存储在oss的文件路径
+             formData.append('OSSAccessKeyId', res.data.accessid) // //accessKeyId
+             formData.append('policy', res.data.policy) // policy
+             formData.append('Signature', res.data.signature) //签名
+             formData.append('success_action_status', 200)
+             formData.append('file', file.file, file.file.name) // 如果是base64文件，那么直接把base64字符串转成blob对象进行上传即可
+
+             this.progressFlag = true
+             return new Promise((resolve, reject) => {
+               let url = `https://${res.data.bucketName}.${res.data.host}`
+               this.$axios.post(url, formData, {
+                 headers: {
+                   'Content-Type': 'multipart/form-data'
+                 },
+                 // 图片上传进度
+                 onUploadProgress: (progressEvent) => {
+                   this.progressPercent = Math.floor(( progressEvent.loaded * 100 ) / progressEvent.total)
+                 }
+               }).then((rep) => {
+                 if (rep.status === 200) {
+                   this.imageUrl = url + '/' + keyValue
+                   // this.fileList.push({ name: file.file.name, url: this.imageUrl })
+                   console.log(this.fileList)
+                   this.$emit('input', this.listToString(this.fileList));
+                   console.log('Uploaded successfully', rep)
+                   this.loading.close();
+                   if (this.progressPercent >= 100) {
+                     this.progressFlag = false
+                     setTimeout(() => {
+                       this.progressPercent = 0
+                     }, 1000)
+                   }
+                 }
+                 resolve(rep)
+               }).catch((err) => {
+                 reject(err)
+               })
+             })
+           }
+         }).catch((err) => {
+           console.log(err)
+           this.loading.close();
+         })*/
+
         uploadFile(12, file.file, (progressEvent) => {
           this.progressPercent = Math.floor(( progressEvent.loaded * 100 ) / progressEvent.total)
         }).then(imgUrl => {
           console.log(imgUrl);
-          this.uploadList.push({ name: file.file.name, url: imgUrl });
-          if (this.uploadList.length === this.number) {
-            this.fileList = this.fileList.concat(this.uploadList);
-            this.uploadList = [];
-            this.number = 0;
-            this.$emit('input', this.listToString(this.fileList));
-            // Form表单校验
-            this.dispatch('ElFormItem', 'el.form.change', this.listToString(this.fileList));
-            this.dispatch('ElFormItem', 'el.form.blur', this.listToString(this.fileList));
-            this.$modal.closeLoading();
+          this.fileList.push({ name: file.file.name, url: imgUrl });
+
+          this.$emit('input', this.listToString(this.fileList));
+          this.dispatch('ElFormItem', 'el.form.change', this.listToString(this.fileList));
+          this.dispatch('ElFormItem', 'el.form.blur', this.listToString(this.fileList));
+
+          this.loading.close();
+          if (this.progressPercent >= 100) {
+            setTimeout(() => {
+              this.progressPercent = 0
+            }, 1000)
           }
         }).catch(err => {
           console.log(err)
-          this.$modal.closeLoading();
+          this.loading.close();
         })
       },
 
       // 删除图片
       handleRemove(file, fileList) {
-        const findex = this.fileList.map(f => f.name).indexOf(file.name);
-        if (findex > -1) {
-          this.fileList.splice(findex, 1);
-          this.$emit('input', this.listToString(this.fileList));
-        }
+        const findex = this.fileList.indexOf(file.name);
+        this.fileList.splice(findex, 1);
+        this.$emit('input', this.listToString(this.fileList));
       },
+
       // 上传成功回调
       handleUploadSuccess(res) {
-        this.uploadList.push({ name: res.fileName, url: res.fileName });
-        if (this.uploadList.length === this.number) {
-          this.fileList = this.fileList.concat(this.uploadList);
-          this.uploadList = [];
-          this.number = 0;
-          this.$emit('input', this.listToString(this.fileList));
-          this.$modal.closeLoading();
-        }
+        this.fileList.push({ name: res.fileName, url: res.fileName });
+        this.$emit('input', this.listToString(this.fileList));
+        this.loading.close();
       },
+
       // 上传前loading加载
       handleBeforeUpload(file) {
+        console.log('!!!!!!!!!!!!!');
         let isImg = false;
         if (this.fileType.length) {
           let fileExtension = '';
@@ -193,27 +258,35 @@
         }
 
         if (!isImg) {
-          this.$modal.msgError(`文件格式不正确, 请上传${this.fileType.join('/')}图片格式文件!`);
+          this.$message.error(
+            `文件格式不正确, 请上传${this.fileType.join('/')}图片格式文件!`
+          );
           return false;
         }
         if (this.fileSize) {
           const isLt = file.size / 1024 / 1024 < this.fileSize;
           if (!isLt) {
-            this.$modal.msgError(`上传头像图片大小不能超过 ${this.fileSize} MB!`);
+            this.$message.error(`上传头像图片大小不能超过 ${this.fileSize} MB!`);
             return false;
           }
         }
-        this.$modal.loading('正在上传图片，请稍候...');
-        this.number++;
+        this.loading = this.$loading({
+          lock: true,
+          text: '上传中',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
       },
       // 文件个数超出
       handleExceed() {
-        this.$modal.msgError(`上传文件数量不能超过 ${this.limit} 个!`);
+        this.$message.error(`上传文件数量不能超过 ${this.limit} 个!`);
       },
       // 上传失败
       handleUploadError() {
-        this.$modal.msgError('上传图片失败，请重试');
-        this.$modal.closeLoading();
+        this.$message({
+          type: 'error',
+          message: '上传失败'
+        });
+        this.loading.close();
       },
       // 预览
       handlePictureCardPreview(file) {
@@ -225,7 +298,7 @@
         let strs = '';
         separator = separator || ',';
         for (let i in list) {
-          strs += list[i].url.replace(this.baseUrl, '') + separator;
+          strs += list[i].url + separator;
         }
         return strs != '' ? strs.substr(0, strs.length - 1) : '';
       }

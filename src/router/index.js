@@ -138,7 +138,7 @@ export const constantRoutes = [
         'hidden': false,
         component: () => import('@/views/demo/form/elFormRenderer'),
         'meta': { 'title': 'elFormRenderer', 'icon': 'carbon:model', 'noCache': false, 'link': null }
-      },
+      }
 
     ]
   },
@@ -164,6 +164,20 @@ export const constantRoutes = [
         'hidden': false,
         component: () => import('@/views/demo/feat/windi/index'),
         'meta': { 'title': 'windi', 'icon': 'simple-icons:windicss', 'noCache': false, 'link': null }
+      },
+      {
+        'name': 'UploadImage',
+        'path': 'uploadImage',
+        'hidden': false,
+        component: () => import('@/views/demo/upload/uploadImage'),
+        'meta': { 'title': '上传图片', 'icon': 'bi:image-fill', 'noCache': false, 'link': null }
+      },
+      {
+        'name': 'UploadFile',
+        'path': 'uploadFile',
+        'hidden': false,
+        component: () => import('@/views/demo/upload/uploadFile'),
+        'meta': { 'title': '上传文件', 'icon': 'icon-park-solid:image-files', 'noCache': false, 'link': null }
       }
     ]
   }

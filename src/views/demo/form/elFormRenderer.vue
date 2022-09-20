@@ -102,30 +102,21 @@
           },
           // daterange
           {
-            key: "time",
-            label: "交易时间",
-            type: "daterange",
+            key: 'time',
+            label: '交易时间',
+            type: 'daterange'
           },
           // datetimerange
           {
-            key: "time1",
-            label: "交易时间1",
-            type: "datetimerange",
+            key: 'time1',
+            label: '交易时间1',
+            type: 'datetimerange'
           },
           {
-            key: 'businessLicenseGroup',
-            label: '上传营业执照',
-            type: 'group',
-            inline: true,
-            list: [
-              {
-                key: 'businessLicense',
-                label: '营业执照',
-                type: 'image',
-                accept: ['.png', '.jpg', '.jpeg'],
-                maxSize: 5 * 1024 * 1024
-              }
-            ]
+            key: 'businessLicense',
+            label: '营业执照',
+            type: 'image',
+            required: true
           },
           {
             key: 'linkedAccttype',
@@ -142,6 +133,7 @@
             label: '统一社会信用代码',
             placeholder: '15、18位字母数字',
             type: 'text',
+            required: true,
             max: 18,
             validator(value) {
               if (!value || typeof value !== 'string' || ![15, 18].includes(value.length)) {
