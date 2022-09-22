@@ -119,6 +119,12 @@
             required: true
           },
           {
+            key: '秘钥',
+            label: '秘钥',
+            type: 'files',
+            required: true
+          },
+          {
             key: 'linkedAccttype',
             label: '银行卡类型',
             type: 'radio',

@@ -5,6 +5,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import ParentView from '@/components/ParentView'
 
 /**
  * Note: 路由配置项
@@ -166,18 +167,29 @@ export const constantRoutes = [
         'meta': { 'title': 'windi', 'icon': 'simple-icons:windicss', 'noCache': false, 'link': null }
       },
       {
-        'name': 'UploadImage',
-        'path': 'uploadImage',
+        'name': 'Upload',
+        'path': 'upload',
         'hidden': false,
-        component: () => import('@/views/demo/upload/uploadImage'),
-        'meta': { 'title': '上传图片', 'icon': 'bi:image-fill', 'noCache': false, 'link': null }
-      },
-      {
-        'name': 'UploadFile',
-        'path': 'uploadFile',
-        'hidden': false,
-        component: () => import('@/views/demo/upload/uploadFile'),
-        'meta': { 'title': '上传文件', 'icon': 'icon-park-solid:image-files', 'noCache': false, 'link': null }
+        'component': ParentView,
+        'redirect': 'noRedirect',
+        'alwaysShow': true,
+        'meta': { 'title': '上传组件', 'icon': 'bytesize:upload', 'noCache': false, 'link': null },
+        'children': [
+          {
+            'name': 'UploadImage',
+            'path': 'uploadImage',
+            'hidden': false,
+            component: () => import('@/views/demo/upload/uploadImage'),
+            'meta': { 'title': '上传图片', 'icon': 'bi:image-fill', 'noCache': false, 'link': null }
+          },
+          {
+            'name': 'UploadFile',
+            'path': 'uploadFile',
+            'hidden': false,
+            component: () => import('@/views/demo/upload/uploadFile'),
+            'meta': { 'title': '上传文件', 'icon': 'icon-park-solid:image-files', 'noCache': false, 'link': null }
+          }
+        ]
       }
     ]
   }

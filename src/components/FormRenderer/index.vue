@@ -63,7 +63,7 @@
             [
               {
                 required: item.required ?? true,
-                message: `请上传图片`,
+                message: `请上传${item.label}`,
                 trigger: ['blur', 'change']
               }
             ]

@@ -11,7 +11,7 @@
         :on-error="handleUploadError"
         :on-exceed="handleExceed"
         :on-success="handleUploadSuccess"
-        :show-file-list="false"
+        :show-file-list="showFileList"
         :headers="headers"
         :http-request="handleUploadFile"
         class="upload-file-uploader"
@@ -29,7 +29,7 @@
     </el-upload>
 
     <!-- 文件列表 -->
-    <transition-group class="upload-file-list el-upload-list el-upload-list--text" name="el-fade-in-linear" tag="ul">
+    <transition-group class="upload-file-list el-upload-list el-upload-list--text" name="el-fade-in-linear" tag="ul" v-if="false">
       <li :key="file.url" class="el-upload-list__item ele-upload-list__item-content" v-for="(file, index) in fileList">
         <el-link :href="`${file.url}`" :underline="false" target="_blank">
           <span class="el-icon-document"> {{ getFileName(file.name) }} </span>
@@ -82,6 +82,11 @@
       },
       // 是否支持多选文件
       multiple: {
+        type: Boolean,
+        default: false
+      },
+      // 是否显示文件展示列表
+      showFileList: {
         type: Boolean,
         default: false
       }
