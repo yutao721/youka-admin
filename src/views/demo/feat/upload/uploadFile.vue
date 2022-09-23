@@ -38,6 +38,11 @@
       <FileUpload v-model="fileList" :fileType="fileType"></FileUpload>
     </div>
 
+    <div class="my-10">
+      <h3 class="my-5">7.上传文件(文件类型 仅支持doc)</h3>
+      <editor v-model="mark"></editor>
+    </div>
+
   </div>
 </template>
 
@@ -60,7 +65,8 @@
         isShowTip: false,
         disabled: true,
         multiple: true,
-        fileType: ['doc']
+        fileType: ['doc'],
+        mark: 'sd'
       }
     }
   }

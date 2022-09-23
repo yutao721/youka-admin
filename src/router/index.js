@@ -116,28 +116,28 @@ export const constantRoutes = [
         'name': 'Element',
         'path': 'element',
         'hidden': false,
-        component: () => import('@/views/demo/form/element'),
+        component: () => import('@/views/demo/feat/form/element'),
         'meta': { 'title': 'element', 'icon': 'logos:element', 'noCache': false, 'link': null }
       },
       {
         'name': 'ElFormSchema',
         'path': 'elFormSchema',
         'hidden': false,
-        component: () => import('@/views/demo/form/elFormSchema'),
+        component: () => import('@/views/demo/feat/form/elFormSchema'),
         'meta': { 'title': 'elFormSchema', 'icon': 'file-icons:json-1', 'noCache': false, 'link': null }
       },
       {
         'name': 'ElFormModel',
         'path': 'elFormModel',
         'hidden': false,
-        component: () => import('@/views/demo/form/elFormModel'),
+        component: () => import('@/views/demo/feat/form/elFormModel'),
         'meta': { 'title': 'elFormModel', 'icon': 'carbon:model', 'noCache': false, 'link': null }
       },
       {
         'name': 'ElFormRenderer',
         'path': 'elFormRenderer',
         'hidden': false,
-        component: () => import('@/views/demo/form/elFormRenderer'),
+        component: () => import('@/views/demo/feat/form/elFormRenderer'),
         'meta': { 'title': 'elFormRenderer', 'icon': 'carbon:model', 'noCache': false, 'link': null }
       }
 
@@ -179,18 +179,43 @@ export const constantRoutes = [
             'name': 'UploadImage',
             'path': 'uploadImage',
             'hidden': false,
-            component: () => import('@/views/demo/upload/uploadImage'),
+            component: () => import('@/views/demo/feat/upload/uploadImage'),
             'meta': { 'title': '上传图片', 'icon': 'bi:image-fill', 'noCache': false, 'link': null }
           },
           {
             'name': 'UploadFile',
             'path': 'uploadFile',
             'hidden': false,
-            component: () => import('@/views/demo/upload/uploadFile'),
+            component: () => import('@/views/demo/feat/upload/uploadFile'),
             'meta': { 'title': '上传文件', 'icon': 'icon-park-solid:image-files', 'noCache': false, 'link': null }
           }
         ]
-      }
+      },
+      {
+        'name': 'Editor',
+        'path': 'editor',
+        'hidden': false,
+        component: () => import('@/views/demo/feat/editor/index'),
+        'meta': { 'title': '富文本', 'icon': 'simple-icons:windicss', 'noCache': false, 'link': null }
+      },
+    ]
+  },
+  {
+    'name': 'Test',
+    'path': '/test',
+    'hidden': false,
+    'redirect': 'noRedirect',
+    'component': Layout,
+    'alwaysShow': true,
+    'meta': { 'title': '测试', 'icon': 'tool|svg', 'noCache': false, 'link': null },
+    'children': [
+      {
+        'name': 'Test1',
+        'path': 'test1',
+        'hidden': false,
+        component: () => import('@/views/test/test'),
+        'meta': { 'title': '测试', 'icon': 'ion:settings-outline', 'noCache': false, 'link': null }
+      },
     ]
   }
   // add new route ..

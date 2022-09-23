@@ -14,6 +14,8 @@
     "@iconify/vue2": "^1.2.1",
     "@kummy/el-form-schema": "^1.2.10",
     "@riophae/vue-treeselect": "0.4.0",
+    "@wangeditor/editor": "^5.1.18",
+    "@wangeditor/editor-for-vue": "^1.0.2",
     "axios": "0.24.0",
     "clipboard": "2.0.8",
     "core-js": "3.19.1",

@@ -137,7 +137,7 @@
                  :disabled="disabled"
                  v-model="value[item.key]"/>
 
-    <!--    <editor v-else-if="item.type === 'richText'" v-model="value[item.key]"/>-->
+    <wangeditor v-else-if="item.type === 'richText'" :readonly="formRenderer.readonly" v-model="value[item.key]"/>
 
     <el-input v-else-if="item.type === 'confirmPassword'"
               type="password"
@@ -170,8 +170,8 @@
   import GetVerifyCode from './GetVerifyCode.vue';
   // 自定义 组件
   import Limit from './Limit.vue';
-  // import RichTextEditor from './RichTextEditor.vue';
-  // import editor from '@/components/editor';
+  // 富文本
+  import wangeditor from '@/components/Editor/wangeditor';
 
   /**
    * @typedef {{key?: string, label: string, type: string, placeholder?: string, hidden?(form): boolean, disabled?: boolean | ((form)=> boolean)}} ItemBase
@@ -190,7 +190,7 @@
 
   export default Vue.extend({
     name: 'FormItem',
-    components: { UploadFile, UploadImage, GetVerifyCode, Limit },
+    components: { UploadFile, UploadImage, GetVerifyCode, Limit, wangeditor },
     inject: ['formRenderer'],
 
     props: {

@@ -69,6 +69,19 @@
             ]
           ]
         ];
+      case 'richText':
+        return [
+          [
+            item.key,
+            [
+              {
+                required: item.required ?? true,
+                message: `请输入${item.label}`,
+                trigger: ['blur', 'change']
+              }
+            ]
+          ]
+        ];
       case 'readonly':
         return [];
       case 'select':

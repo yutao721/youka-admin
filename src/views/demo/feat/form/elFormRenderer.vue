@@ -10,9 +10,7 @@
         label-width="190px"
         :items="items"
         :readonly="readonly"
-        v-model="form"
-    >
-
+        v-model="form">
     </form-renderer>
     <div class="flex justify-center">
       <el-button type="primary" @click="handleNextClick">提交认证信息</el-button>
@@ -119,7 +117,7 @@
             required: true
           },
           {
-            key: '秘钥',
+            key: 'missKey',
             label: '秘钥',
             type: 'files',
             required: true
@@ -147,8 +145,7 @@
               }
             },
             disabled(form) {
-              console.log(form);
-              return form.verifyProcess === 10 || form.verifyProcess === 20;
+              return false
             }
           },
           {
@@ -195,7 +192,14 @@
             placeholder: '请输入企业邮箱',
             type: 'email',
             max: 30
+          },
+          {
+            key: 'remark2',
+            label: '描述',
+            type: 'richText',
+            required: true
           }
+
         ],
         // 表单model
         form: {
@@ -204,7 +208,8 @@
           checkboxKey: [],
           radioKey: '',
           password: '',
-          confirmPasswordKey: ''
+          confirmPasswordKey: '',
+          remark2: ''
         }
       }
     },
