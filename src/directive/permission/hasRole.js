@@ -1,14 +1,17 @@
- /**
- * v-hasRole 角色权限处理
- * Copyright (c) 2019 ruoyi
+/**
+ * 角色权限处理
+ * 1. 单个
+ *    <el-button v-hasRole="['admin']">管理员才能看到</el-button>
+ * 2. 多个
+ *    <el-button v-hasRole="['role1', 'role2']">包含角色才能看到</el-button>
  */
- 
+
 import store from '@/store'
 
 export default {
   inserted(el, binding, vnode) {
     const { value } = binding
-    const super_admin = "admin";
+    const super_admin = 'admin';
     const roles = store.getters && store.getters.roles
 
     if (value && value instanceof Array && value.length > 0) {

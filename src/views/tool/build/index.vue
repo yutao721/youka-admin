@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-wrap">
     <div class="left-board">
       <div class="logo-wrapper">
         <div class="logo">
@@ -511,7 +511,7 @@ input, textarea{
 $selectedColor: #f6f7ff;
 $lighterBlue: #409EFF;
 
-.container {
+.container-wrap {
   position: relative;
   width: 100%;
   height: 100%;

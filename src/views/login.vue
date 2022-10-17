@@ -1,76 +1,97 @@
 <template>
-  <div class="login">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
-      <h3 class="title">若依后台管理系统</h3>
-      <el-form-item prop="username">
-        <el-input
-          v-model="loginForm.username"
-          type="text"
-          auto-complete="off"
-          placeholder="账号"
-        >
-          <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="password">
-        <el-input
-          v-model="loginForm.password"
-          type="password"
-          auto-complete="off"
-          placeholder="密码"
-          @keyup.enter.native="handleLogin"
-        >
-          <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="code" v-if="captchaEnabled">
-        <el-input
-          v-model="loginForm.code"
-          auto-complete="off"
-          placeholder="验证码"
-          style="width: 63%"
-          @keyup.enter.native="handleLogin"
-        >
-          <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
-        </el-input>
-        <div class="login-code">
-          <img :src="codeUrl" @click="getCode" class="login-code-img"/>
-        </div>
-      </el-form-item>
-      <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
-      <el-form-item style="width:100%;">
-        <el-button
-          :loading="loading"
-          size="medium"
-          type="primary"
-          style="width:100%;"
-          @click.native.prevent="handleLogin"
-        >
-          <span v-if="!loading">登 录</span>
-          <span v-else>登 录 中...</span>
-        </el-button>
-        <div style="float: right;" v-if="register">
-          <router-link class="link-type" :to="'/register'">立即注册</router-link>
-        </div>
-      </el-form-item>
-    </el-form>
-    <!--  底部  -->
-    <div class="el-login-footer">
-      <span>Copyright © 2018-2022 ruoyi.vip All Rights Reserved.</span>
+  <div>
+    <img :src="bg" class="wave" />
+    <div class="login-container">
+      <!-- 预留位置 可以配置后台图片 -->
+      <div></div>
+      <div class="login">
+        <h3 class="title">{{ title }}</h3>
+
+        <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" v-if="currentPage === 0">
+          <!-- 用户名 -->
+          <el-form-item prop="username">
+            <el-input v-model="loginForm.username" type="text" placeholder="账号" clearable>
+              <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
+            </el-input>
+          </el-form-item>
+
+          <!-- 密码 -->
+          <el-form-item prop="password">
+            <el-input v-model="loginForm.password" type="password" placeholder="密码" show-password clearable @keyup.enter.native="handleLogin">
+              <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
+            </el-input>
+          </el-form-item>
+
+          <!-- 图形验证码 -->
+          <el-form-item prop="code" v-if="captchaEnabled">
+            <el-input v-model="loginForm.code" placeholder="验证码" style="width: 63%" clearable @keyup.enter.native="handleLogin">
+              <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
+            </el-input>
+
+            <div class="login-code">
+              <ReImageVerify ref="ReImageVerify" :code.sync="imgCode" />
+            </div>
+
+          </el-form-item>
+
+          <el-form-item>
+            <div class="w-full flex justify-between items-center">
+              <el-checkbox v-model="loginForm.rememberMe">记住密码</el-checkbox>
+              <el-button type="text" @click="handleToUpdate">忘记密码?</el-button>
+            </div>
+          </el-form-item>
+
+
+
+          <el-form-item style="width:100%;">
+            <el-button :loading="loading" size="medium" type="primary" style="width:100%;" @click.native.prevent="handleLogin">
+              <span v-if="!loading">登 录</span>
+              <span v-else>登 录 中...</span>
+            </el-button>
+            <div style="float: right;" v-if="register">
+              <router-link class="link-type" :to="'/register'">立即注册</router-link>
+            </div>
+          </el-form-item>
+        </el-form>
+
+        <!-- 忘记密码 -->
+        <update v-if="currentPage === 4" />
+
+      </div>
     </div>
+
   </div>
 </template>
 
 <script>
-import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
-import { encrypt, decrypt } from '@/utils/jsencrypt'
+import ReImageVerify from "@/components/ReImageVerify";
+import update from "./login/components/update.vue";
+import { encrypt, decrypt } from '@/utils/jsencrypt';
+
+// 页面背景图
+import bg from '@/assets/login/bg.png';
+// 登录页面的title,可以在配置文件中设置
+import { title } from '@/config';
 
 export default {
   name: "Login",
+  components: {
+    ReImageVerify,
+    update
+  },
   data() {
+    const validatorCode = (rule, value, callback) => {
+      if (this.imgCode !== value) {
+        callback(new Error("请输入正确的验证码"));
+      } else {
+        callback();
+      }
+    };
     return {
-      codeUrl: "",
+      bg: bg,  // 背景
+      title: title,// 管理后台标题
+      imgCode: '', // 图片校验码
       loginForm: {
         username: "admin",
         password: "admin123",
@@ -85,38 +106,39 @@ export default {
         password: [
           { required: true, trigger: "blur", message: "请输入您的密码" }
         ],
-        code: [{ required: true, trigger: "change", message: "请输入验证码" }]
+        code: [
+          { required: true, trigger: "change", message: "请输入验证码" },
+          { required: true, validator: validatorCode, trigger: "change" }
+        ]
       },
       loading: false,
       // 验证码开关
       captchaEnabled: true,
       // 注册开关
-      register: false,
-      redirect: undefined
+      register: true,
+      redirect: undefined,
+      // 1:登录
+      currentPage: 4
     };
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         this.redirect = route.query && route.query.redirect;
       },
       immediate: true
+    },
+
+    'imgCode': function (val) {
+      console.log(val)
     }
   },
   created() {
-    this.getCode();
     this.getCookie();
   },
+
   methods: {
-    getCode() {
-      getCodeImg().then(res => {
-        this.captchaEnabled = res.captchaEnabled === undefined ? true : res.captchaEnabled;
-        if (this.captchaEnabled) {
-          this.codeUrl = "data:image/gif;base64," + res.img;
-          this.loginForm.uuid = res.uuid;
-        }
-      });
-    },
+
     getCookie() {
       const username = Cookies.get("username");
       const password = Cookies.get("password");
@@ -127,6 +149,13 @@ export default {
         rememberMe: rememberMe === undefined ? false : Boolean(rememberMe)
       };
     },
+
+    // 忘记密码  
+    handleToUpdate() {
+      this.currentPage = 4
+    },
+
+
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
@@ -141,11 +170,12 @@ export default {
             Cookies.remove('rememberMe');
           }
           this.$store.dispatch("Login", this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || "/" }).catch(()=>{});
+            this.$router.push({ path: this.redirect || "/" }).catch(() => { });
           }).catch(() => {
             this.loading = false;
+            // 重新生成图片验证码
             if (this.captchaEnabled) {
-              this.getCode();
+              this.$refs.ReImageVerify.getImgCode();
             }
           });
         }
@@ -156,14 +186,31 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
+.wave {
+  position: fixed;
+  height: 100%;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.login-container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 18rem;
+  padding: 0 2rem;
+}
+
 .login {
   display: flex;
   justify-content: center;
-  align-items: center;
+  flex-direction: column;
   height: 100%;
-  background-image: url("../assets/images/login-background.jpg");
-  background-size: cover;
+  width: 400px;
 }
+
 .title {
   margin: 0px auto 30px auto;
   text-align: center;
@@ -175,45 +222,36 @@ export default {
   background: #ffffff;
   width: 400px;
   padding: 25px 25px 5px 25px;
+
   .el-input {
     height: 38px;
+
     input {
       height: 38px;
     }
   }
+
   .input-icon {
     height: 39px;
     width: 14px;
     margin-left: 2px;
   }
 }
+
 .login-tip {
   font-size: 13px;
   text-align: center;
   color: #bfbfbf;
 }
+
 .login-code {
   width: 33%;
   height: 38px;
   float: right;
+
   img {
     cursor: pointer;
     vertical-align: middle;
   }
-}
-.el-login-footer {
-  height: 40px;
-  line-height: 40px;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-  color: #fff;
-  font-family: Arial;
-  font-size: 12px;
-  letter-spacing: 1px;
-}
-.login-code-img {
-  height: 38px;
 }
 </style>

@@ -6,6 +6,14 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 
+
+/* Router Modules */
+import tableRouter from './modules/table'
+import formRouter from './modules/form';
+import featRouter from './modules/feat';
+import componentsRouter from './modules/components';
+import chartsRouter from './modules/charts';
+
 /**
  * Note: 路由配置项
  *
@@ -43,7 +51,7 @@ export const constantRoutes = [
   },
   {
     path: '/login',
-    component: () => import('@/views/login'),
+    component: () => import('@/views/login/index.vue'),
     hidden: true
   },
   {
@@ -68,9 +76,9 @@ export const constantRoutes = [
     children: [
       {
         path: 'index',
-        component: () => import('@/views/index_v1'),
+        component: () => import('@/views/index'),
         name: 'Index',
-        meta: { title: '首页1', icon: 'dashboard', affix: true }
+        meta: { title: '首页', icon: 'dashboard|svg', affix: true }
       }
     ]
   },
@@ -84,10 +92,36 @@ export const constantRoutes = [
         path: 'profile',
         component: () => import('@/views/system/user/profile/index'),
         name: 'Profile',
-        meta: { title: '个人中心', icon: 'user' }
+        meta: { title: '个人中心', icon: 'user|svg' }
       }
     ]
-  }
+  },
+  {
+    path: '/user',
+    component: Layout,
+    hidden: true,
+    redirect: 'noredirect',
+    children: [
+      {
+        path: 'profile',
+        component: () => import('@/views/system/user/profile/index'),
+        name: 'Profile',
+        meta: { title: '个人中心', icon: 'user|svg' }
+      }
+    ]
+  },
+
+  // form相关
+  formRouter,
+  // table相关
+  tableRouter,
+  // 功能相关
+  featRouter,
+  // 组件相关
+  componentsRouter,
+  // 图标相关
+  chartsRouter
+  // add new route ..
 ]
 
 // 动态路由，基于用户权限动态去加载
@@ -135,20 +169,6 @@ export const dynamicRoutes = [
     ]
   },
   {
-    path: '/monitor/job-log',
-    component: Layout,
-    hidden: true,
-    permissions: ['monitor:job:list'],
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/monitor/job/log'),
-        name: 'JobLog',
-        meta: { title: '调度日志', activeMenu: '/monitor/job' }
-      }
-    ]
-  },
-  {
     path: '/tool/gen-edit',
     component: Layout,
     hidden: true,
@@ -172,6 +192,6 @@ Router.prototype.push = function push(location) {
 
 export default new Router({
   mode: 'history', // 去掉url中的#
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ( { y: 0 } ),
   routes: constantRoutes
 })

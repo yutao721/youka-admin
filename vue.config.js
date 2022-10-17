@@ -9,8 +9,7 @@ const CompressionPlugin = require('compression-webpack-plugin')
 const { PurgeIcons } = require('purge-icons-webpack-plugin')
 
 const name = process.env.VUE_APP_TITLE || '后台管理系统' // 网页标题
-
-const port = process.env.port || process.env.npm_config_port || 9521 // 端口
+const port = process.env.port || process.env.npm_config_port || 81 // 端口
 
 // vue.config.js 配置说明
 //官方vue.config.js 参考文档 https://cli.vuejs.org/zh/config/#css-loaderoptions
@@ -51,8 +50,16 @@ module.exports = {
     loaderOptions: {
       sass: {
         sassOptions: { outputStyle: "expanded" }
-      }
+      },
+      // postcss: {
+      //   // plugins: [require('tailwindcss'), require('autoprefixer')]
+      // }
     }
+  },
+  pluginOptions: {
+    windicss: {
+      // see https://github.com/windicss/vite-plugin-windicss/blob/main/packages/plugin-utils/src/options.ts
+    },
   },
   configureWebpack: {
     name: name,
@@ -76,6 +83,7 @@ module.exports = {
     config.plugins.delete('preload') // TODO: need test
     config.plugins.delete('prefetch') // TODO: need test
 
+    // iconify图标插件
     config.plugin('purgeIcons').use(PurgeIcons).tap(args => {
       return args
     })

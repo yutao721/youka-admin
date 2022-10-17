@@ -1,22 +1,22 @@
 <template>
   <div id="tags-view-container" class="tags-view-container">
     <scroll-pane ref="scrollPane" class="tags-view-wrapper" @scroll="handleScroll">
-      <span v-for="tag in visitedViews"  :key="tag.path" ref="tag"  @mouseenter.prevent="onMouseenter(tag)">
-        <router-link
-          :class="isActive(tag)?'active':''"
-          :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
-          tag="span"
-          class="tags-view-item"
-          :style="activeStyle(tag)"
-          @click.middle.native="!isAffix(tag)?closeSelectedTag(tag):''"
-          @contextmenu.prevent.native="openMenu(tag,$event)"
-        >
-          {{ tag.title }}
-          <span v-if="!isAffix(tag)" class="el-icon-close"  @click.prevent.stop="closeSelectedTag(tag)" />
-        </router-link>
-      </span>
+      <router-link
+        v-for="tag in visitedViews"
+        ref="tag"
+        :key="tag.path"
+        :class="isActive(tag)?'active':''"
+        :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
+        tag="span"
+        class="tags-view-item"
+        :style="activeStyle(tag)"
+        @click.middle.native="!isAffix(tag)?closeSelectedTag(tag):''"
+        @contextmenu.prevent.native="openMenu(tag,$event)"
+      >
+        {{ tag.title }}
+        <span v-if="!isAffix(tag)" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)" />
+      </router-link>
     </scroll-pane>
-
     <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
       <li @click="refreshSelectedTag(selectedTag)"><i class="el-icon-refresh-right"></i> 刷新页面</li>
       <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)"><i class="el-icon-close"></i> 关闭当前</li>
@@ -72,9 +72,6 @@ export default {
     this.addTags()
   },
   methods: {
-    onMouseenter(tag) {
-      console.log(1)
-    },
     isActive(route) {
       return route.path === this.$route.path
     },
@@ -236,7 +233,7 @@ export default {
 
 <style lang="scss" scoped>
 .tags-view-container {
-  height: 38px;
+  height: 34px;
   width: 100%;
   background: #fff;
   border-bottom: 1px solid #d8dce5;
@@ -246,8 +243,8 @@ export default {
       display: inline-block;
       position: relative;
       cursor: pointer;
-      height: 30px;
-      line-height: 30px;
+      height: 26px;
+      line-height: 26px;
       border: 1px solid #d8dce5;
       color: #495060;
       background: #fff;

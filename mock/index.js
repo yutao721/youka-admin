@@ -6,7 +6,7 @@ const menu = require('./menu')
 const post = require('./system/post')
 const dept = require('./system/dept')
 const user1 = require('./system/user')
-const group = require('./node/index')
+const article = require('./article')
 
 const mocks = [
   ...user,
@@ -14,7 +14,7 @@ const mocks = [
   ...post,
   ...dept,
   ...user1,
-  ...group
+  ...article
 ]
 
 // for front mock
