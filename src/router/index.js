@@ -78,7 +78,7 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/index'),
         name: 'Index',
-        meta: { title: '首页1', icon: 'dashboard|svg', affix: true }
+        meta: { title: '首页', icon: 'dashboard|svg', affix: true }
       }
     ]
   },
@@ -120,25 +120,7 @@ export const constantRoutes = [
   // 组件相关
   componentsRouter,
   // 图标相关
-  chartsRouter,
-  {
-    'name': 'Test',
-    'path': '/test',
-    'hidden': false,
-    'redirect': 'noRedirect',
-    'component': Layout,
-    'alwaysShow': true,
-    'meta': { 'title': '测试', 'icon': 'tool|svg', 'noCache': false, 'link': null },
-    'children': [
-      {
-        'name': 'Test1',
-        'path': 'test1',
-        'hidden': false,
-        component: () => import('@/views/test/test'),
-        'meta': { 'title': '测试', 'icon': 'ion:settings-outline', 'noCache': false, 'link': null }
-      }
-    ]
-  }
+  chartsRouter
   // add new route ..
 ]
 

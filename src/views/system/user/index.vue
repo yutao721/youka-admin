@@ -463,9 +463,10 @@ export default {
   created() {
     this.getList();
     this.getTreeselect();
-    this.getConfigKey("sys.user.initPassword").then(response => {
-      this.initPassword = response.msg;
-    });
+    // this.getConfigKey("sys.user.initPassword").then(response => {
+    //   this.initPassword = response.msg;
+    // });
+    this.initPassword = '123456';
   },
   methods: {
     /** 查询用户列表 */
