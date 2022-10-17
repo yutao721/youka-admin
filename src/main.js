@@ -85,7 +85,7 @@ Vue.component('Icon', Icon)
  */
 if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
-  mockXHR()
+  mockXHnR()
 }
 
 // Element组件库

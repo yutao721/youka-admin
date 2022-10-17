@@ -1,5 +1,6 @@
 module.exports = [
 
+  // 用户列表
   {
     url: '/system/user/list',
     type: 'get',
@@ -105,6 +106,7 @@ module.exports = [
     }
   },
 
+  // 查询用户详细
   {
     url: '/system/user/',
     type: 'get',
@@ -238,7 +240,70 @@ module.exports = [
         }, { 'searchValue': null, 'createBy': 'admin', 'createTime': '2022-08-01 12:00:25', 'updateBy': null, 'updateTime': null, 'remark': '', 'params': {}, 'postId': 4, 'postCode': 'user', 'postName': '普通员工', 'postSort': '4', 'status': '0', 'flag': false }]
       }
     }
+  },
+
+  // 新增用户 模拟
+  {
+    url: '/system/user',
+    type: 'post',
+    response: () => {
+      return {
+        'msg': '操作成功',
+        'code': 200,
+        data: {}
+      }
+    }
+  },
+
+  // 修改用户 模拟
+  {
+    url: '/system/user',
+    type: 'put',
+    response: () => {
+      return {
+        'msg': '操作成功',
+        'code': 200,
+        data: {}
+      }
+    }
+  },
+
+  // 删除用户 模拟
+  {
+    url: '/system/user',
+    type: 'delete',
+    response: () => {
+      return {
+        'msg': '操作成功',
+        'code': 200,
+        data: {}
+      }
+    }
+  },
+
+  // 用户密码重置 模拟
+  {
+    url: '/system/user/resetPwd',
+    type: 'put',
+    response: () => {
+      return {
+        'msg': '操作成功',
+        'code': 200,
+        data: {}
+      }
+    }
+  },
+
+  // 用户状态修改 模拟
+  {
+    url: '/system/user/changeStatus',
+    type: 'put',
+    response: () => {
+      return {
+        'msg': '操作成功',
+        'code': 200,
+        data: {}
+      }
+    }
   }
-
-
 ]

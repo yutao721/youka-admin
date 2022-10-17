@@ -6,7 +6,10 @@ const menu = require('./menu')
 const post = require('./system/post')
 const dept = require('./system/dept')
 const user1 = require('./system/user')
+const role = require('./system/role')
+const menu1 = require('./system/menu')
 const article = require('./article')
+const data = require('./system/dict/data')
 
 const mocks = [
   ...user,
@@ -14,6 +17,9 @@ const mocks = [
   ...post,
   ...dept,
   ...user1,
+  ...role,
+  ...menu1,
+  ...data,
   ...article
 ]
 
