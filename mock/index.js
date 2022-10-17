@@ -6,13 +6,15 @@ const menu = require('./menu')
 const post = require('./system/post')
 const dept = require('./system/dept')
 const user1 = require('./system/user')
+const article = require('./article')
 
 const mocks = [
   ...user,
   ...menu,
   ...post,
   ...dept,
-  ...user1
+  ...user1,
+  ...article
 ]
 
 // for front mock

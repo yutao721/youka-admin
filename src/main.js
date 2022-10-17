@@ -19,6 +19,7 @@ import './permission' // permission control
 import { getDicts } from '@/api/system/dict/data';
 import { getConfigKey } from '@/api/system/config';
 import { parseTime, resetForm, addDateRange, selectDictLabel, selectDictLabels, handleTree } from '@/utils/ruoyi';
+import * as filters from './filters' // global filters
 // 分页组件
 import Pagination from '@/components/Pagination';
 // 自定义表格工具组件
@@ -94,6 +95,10 @@ Vue.use(elFormSchema)
 // ElFormModel  表单组件 可配置参数   地址： https://www.npmjs.com/package/el-form-model
 Vue.use(ElFormModel)
 
+// register global utility filters
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 Vue.config.productionTip = false
 
