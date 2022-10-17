@@ -12,6 +12,7 @@ import tableRouter from './modules/table'
 import formRouter from './modules/form';
 import featRouter from './modules/feat';
 import componentsRouter from './modules/components';
+import chartsRouter from './modules/charts';
 
 /**
  * Note: 路由配置项
@@ -118,6 +119,8 @@ export const constantRoutes = [
   featRouter,
   // 组件相关
   componentsRouter,
+  // 图标相关
+  chartsRouter,
   {
     'name': 'Test',
     'path': '/test',
