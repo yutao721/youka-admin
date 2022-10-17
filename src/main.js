@@ -24,12 +24,12 @@ import * as filters from './filters' // global filters
 import Pagination from '@/components/Pagination';
 // 自定义表格工具组件
 import RightToolbar from '@/components/RightToolbar'
-// 富文本组件
-import Editor from '@/components/Editor'
-// 文件上传组件
-import FileUpload from '@/components/FileUpload'
-// 图片上传组件
-import ImageUpload from '@/components/ImageUpload'
+// 富文本组件 wangeditor
+import Editor from '@/components/Editor/wangeditor'
+// 文件上传组件 oss
+import FileUpload from '@/components/FileUpload/uploadByOss'
+// 图片上传组件 oss
+import ImageUpload from '@/components/ImageUpload/uploadByOss'
 // 图片预览组件
 import ImagePreview from '@/components/ImagePreview'
 // 字典标签组件
@@ -85,7 +85,7 @@ Vue.component('Icon', Icon)
  */
 if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
-  mockXHnR()
+  mockXHR()
 }
 
 // Element组件库
