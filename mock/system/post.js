@@ -1,5 +1,6 @@
 module.exports = [
 
+  // 查询岗位列表
   {
     url: '/system/post/list',
     type: 'get',
@@ -180,6 +181,55 @@ module.exports = [
           'status': '0',
           'default': false
         }]
+      }
+    }
+  },
+
+
+  // 查询岗位详细
+  {
+    url: '/system/post/',
+    type: 'get',
+    response: () => {
+      return {"msg":"操作成功","code":200,"data":{"searchValue":null,"createBy":"admin","createTime":"2022-08-01 12:00:24","updateBy":null,"updateTime":null,"remark":"","params":{},"postId":1,"postCode":"ceo","postName":"董事长","postSort":"1","status":"0","flag":false}}
+    }
+  },
+
+  // 新增菜单
+  {
+    url: '/system/post',
+    type: 'post',
+    response: () => {
+      return {
+        'msg': '操作成功',
+        'code': 200,
+        'data': {}
+      }
+    }
+  },
+
+  // 修改菜单
+  {
+    url: '/system/post',
+    type: 'put',
+    response: () => {
+      return {
+        'msg': '操作成功',
+        'code': 200,
+        'data': {}
+      }
+    }
+  },
+
+  // 删除菜单
+  {
+    url: '/system/post/',
+    type: 'delete',
+    response: () => {
+      return {
+        'msg': '操作成功',
+        'code': 200,
+        'data': {}
       }
     }
   }
