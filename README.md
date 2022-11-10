@@ -1,8 +1,6 @@
 ## 开发
 
 ```bash
-# 克隆项目
-git clone https://github.com/yutao721/youka-admin
 
 
 # 安装依赖

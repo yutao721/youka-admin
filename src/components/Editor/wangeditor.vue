@@ -60,7 +60,7 @@
     data() {
       return {
         editor: null,
-        html: this.value,
+        // html: this.value,
         toolbarConfig: {},
         editorConfig: {
           placeholder: '请输入内容...',
@@ -128,6 +128,7 @@
 
       onCreated(editor) {
         this.editor = Object.seal(editor) // 一定要用 Object.seal() ，否则会报错
+        this.html = this.value
       },
 
       onChange(editor) {
