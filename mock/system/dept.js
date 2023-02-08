@@ -225,7 +225,7 @@ module.exports = [
 
   // 查询部门详细
   {
-    url: '/system/dept/',
+    url: '/system/dept/1',
     type: 'get',
     response: () => {
       return {
@@ -267,14 +267,19 @@ module.exports = [
         'data': [{
           'id': 100,
           'label': '若依科技',
-          'children': [{
-            'id': 101,
-            'label': '深圳总公司',
-            'children': [{ 'id': 103, 'label': '研发部门' }, { 'id': 104, 'label': '市场部门' }, { 'id': 105, 'label': '测试部门' }, { 'id': 106, 'label': '财务部门' }, {
-              'id': 107,
-              'label': '运维部门'
+          'children': [
+            {
+              'id': 101,
+              'label': '深圳总公司',
+              'children': [{ 'id': 103, 'label': '研发部门' }, { 'id': 104, 'label': '市场部门' }, { 'id': 105, 'label': '测试部门' }, { 'id': 106, 'label': '财务部门' }, {
+                'id': 107,
+                'label': '运维部门'
+              }
+              ]
+            },
+            {
+              'id': 102, 'label': '长沙分公司', 'children': [{ 'id': 108, 'label': '市场部门' }, { 'id': 109, 'label': '财务部门' }]
             }]
-          }, { 'id': 102, 'label': '长沙分公司', 'children': [{ 'id': 108, 'label': '市场部门' }, { 'id': 109, 'label': '财务部门' }] }]
         }]
       }
     }

@@ -110,7 +110,24 @@ export const constantRoutes = [
       }
     ]
   },
-
+  // {
+  //   path: '/excel',
+  //   component: Layout,
+  //   redirect: '/excel/export-excel',
+  //   name: 'excel',
+  //   meta: {
+  //     title: 'excel',
+  //     icon: 'excel|svg'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'export-excel',
+  //       component: ()=>import('@/views/system/user'),
+  //       name: 'exportExcel',
+  //       meta: { title: 'exportExcel' }
+  //     }
+  //   ]
+  // },
   // form相关
   formRouter,
   // table相关
@@ -120,7 +137,7 @@ export const constantRoutes = [
   // 组件相关
   componentsRouter,
   // 图标相关
-  chartsRouter
+  chartsRouter,
   // add new route ..
 ]
 

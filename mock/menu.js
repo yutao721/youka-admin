@@ -48,25 +48,27 @@ module.exports = [
                 'hidden': false,
                 'component': 'system/post/index',
                 'meta': { 'title': '岗位管理', 'icon': 'post|svg', 'noCache': false, 'link': null }
-              }, {
-                'name': 'Dict',
-                'path': 'dict',
-                'hidden': false,
-                'component': 'system/dict/index',
-                'meta': { 'title': '字典管理', 'icon': 'dict|svg', 'noCache': false, 'link': null }
-              }, {
-                'name': 'Config',
-                'path': 'config',
-                'hidden': false,
-                'component': 'system/config/index',
-                'meta': { 'title': '参数设置', 'icon': 'edit|svg', 'noCache': false, 'link': null }
-              }, {
-                'name': 'Notice',
-                'path': 'notice',
-                'hidden': false,
-                'component': 'system/notice/index',
-                'meta': { 'title': '通知公告', 'icon': 'message|svg', 'noCache': false, 'link': null }
-              }]
+              },
+              // {
+              //   'name': 'Dict',
+              //   'path': 'dict',
+              //   'hidden': false,
+              //   'component': 'system/dict/index',
+              //   'meta': { 'title': '字典管理', 'icon': 'dict|svg', 'noCache': false, 'link': null }
+              // }, {
+              //   'name': 'Config',
+              //   'path': 'config',
+              //   'hidden': false,
+              //   'component': 'system/config/index',
+              //   'meta': { 'title': '参数设置', 'icon': 'edit|svg', 'noCache': false, 'link': null }
+              // }, {
+              //   'name': 'Notice',
+              //   'path': 'notice',
+              //   'hidden': false,
+              //   'component': 'system/notice/index',
+              //   'meta': { 'title': '通知公告', 'icon': 'message|svg', 'noCache': false, 'link': null }
+              // }
+            ]
           },
 
           {

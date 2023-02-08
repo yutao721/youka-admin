@@ -108,7 +108,7 @@ module.exports = [
 
   // 查询用户详细
   {
-    url: '/system/user/',
+    url: '/system/user/[0-9]',
     type: 'get',
     response: () => {
       return {
@@ -303,6 +303,103 @@ module.exports = [
         'msg': '操作成功',
         'code': 200,
         data: {}
+      }
+    }
+  },
+
+  // 查询用户角色信心
+  {
+    url: '/system/user/authRole/[A-Za-z0-9]',
+    type: 'get', //
+    response: (req, res) => {
+      return {
+        'msg': '操作成功',
+        'code': 200,
+        'roles': [{
+          'createBy': null,
+          'createTime': '2023-02-03 11:11:33',
+          'updateBy': null,
+          'updateTime': null,
+          'remark': '普通角色',
+          'roleId': 2,
+          'roleName': '普通角色',
+          'roleKey': 'common',
+          'roleSort': 2,
+          'dataScope': '2',
+          'menuCheckStrictly': true,
+          'deptCheckStrictly': true,
+          'status': '0',
+          'delFlag': '0',
+          'flag': true,
+          'menuIds': null,
+          'deptIds': null,
+          'permissions': null,
+          'admin': false
+        }],
+        'user': {
+          'createBy': 'admin',
+          'createTime': '2023-02-03 11:11:26',
+          'updateBy': null,
+          'updateTime': null,
+          'remark': '测试员',
+          'userId': 2,
+          'deptId': 105,
+          'userName': 'ry',
+          'nickName': '若依',
+          'email': 'ry@qq.com',
+          'phonenumber': '15666666666',
+          'sex': '1',
+          'avatar': '',
+          'password': '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2',
+          'status': '0',
+          'delFlag': '0',
+          'loginIp': '183.48.91.108',
+          'loginDate': '2023-02-08T17:18:42.000+08:00',
+          'dept': {
+            'createBy': null,
+            'createTime': null,
+            'updateBy': null,
+            'updateTime': null,
+            'remark': null,
+            'deptId': 105,
+            'parentId': 101,
+            'ancestors': '0,100,101',
+            'deptName': '测试部门',
+            'orderNum': 3,
+            'leader': '若依',
+            'phone': null,
+            'email': null,
+            'status': '0',
+            'delFlag': null,
+            'parentName': null,
+            'children': []
+          },
+          'roles': [{
+            'createBy': null,
+            'createTime': null,
+            'updateBy': null,
+            'updateTime': null,
+            'remark': null,
+            'roleId': 2,
+            'roleName': '普通角色',
+            'roleKey': 'common',
+            'roleSort': 2,
+            'dataScope': '2',
+            'menuCheckStrictly': false,
+            'deptCheckStrictly': false,
+            'status': '0',
+            'delFlag': null,
+            'flag': false,
+            'menuIds': null,
+            'deptIds': null,
+            'permissions': null,
+            'admin': false
+          }],
+          'roleIds': null,
+          'postIds': null,
+          'roleId': null,
+          'admin': false
+        }
       }
     }
   }
