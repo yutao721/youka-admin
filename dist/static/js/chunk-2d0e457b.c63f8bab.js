@@ -1,1 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0e457b"],{"908f":function(e,i,n){"use strict";n.r(i),i["default"]={isShowRegister:!0,isShowForget:!0,captchaEnabled:!0,verifyBtnText:"获取验证码",verifyBtnTime:60}}}]);
