@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="my-10 px-5 text-bold text-lg text-black">
-      <h1>ElFormModel组件</h1>
+      <h1>ElFormRenderer组件</h1>
     </div>
 
     <form-renderer
@@ -122,6 +122,22 @@
             type: 'files',
             required: true
           },
+          { key: 'quota', label: '个人限量', type: 'limit', unlimited: 0 },
+          {
+            key: "confirmPassword",
+            label: "确认密码",
+            placeholder: "请再次输入密码",
+            type: "confirmPassword",
+            password: "password",
+          },
+          {
+            key: "code",
+            label: "验证码",
+            type: "verifyCode",
+            placeholder: "请输入验证码",
+            itype: 21,
+            mobile: "mobile",
+          },
           {
             key: 'linkedAccttype',
             label: '银行卡类型',
@@ -209,7 +225,8 @@
           radioKey: '',
           password: '',
           confirmPasswordKey: '',
-          remark2: ''
+          remark2: '',
+          quota: 0,
         }
       }
     },
